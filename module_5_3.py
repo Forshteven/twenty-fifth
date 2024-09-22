@@ -10,9 +10,6 @@ class House:
         else:
             print(f"Такого этажа не существует")
 
-    def __len__(self):
-        return self.number_of_floors
-
     def __str__(self):
         return f"Название: {self.name}, количество этажей: {self.number_of_floors}."
 
@@ -35,8 +32,14 @@ class House:
         return self.number_of_floors != other.number_of_floors
 
     def __add__(self, value):
-        return self.number_of_floors + int(value)
+        return House(self.name, self.number_of_floors + value)
 
+    def __iadd__(self, value):
+        self.number_of_floors += value
+        return House(self.name, self.number_of_floors)
+
+    def __radd__(self, value):
+        return House(self.name, value + self.number_of_floors)
 
 h1 = House('ЖК Эльбрус', 10)
 h2 = House('ЖК Акация', 20)
